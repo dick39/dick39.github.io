@@ -52,3 +52,14 @@ public class DataSource extends org.apache.commons.dbcp.BasicDataSource{
 #最后
 我并没有完美解决该问题，在dbcp项目中也有人提出该[bug](https://issues.apache.org/jira/browse/DBCP-332)。现在的办法验证成功的只有方案2。
 话说很想用一下阿里的druid，不知道会不会有变化。
+
+#####2017-02-16更新：
+在使用druid连接后，仍旧出现相关异常日志：
+```
+[19503 INFO  2017/02/16 14:50:51:953][com.alibaba.druid.pool.DruidDataSource] {dataSource-1} closed
+二月 16, 2017 2:50:51 下午 org.apache.catalina.loader.WebappClassLoaderBase clearReferencesJdbc
+严重: The web application [/ai_httpproxy] registered the JDBC driver [com.alibaba.druid.proxy.DruidDriver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+二月 16, 2017 2:50:51 下午 org.apache.catalina.loader.WebappClassLoaderBase clearReferencesJdbc
+严重: The web application [/ai_httpproxy] registered the JDBC driver [com.mysql.jdbc.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+二月 16, 2017 2:50:51 下午 org.apache.catalina.loader.WebappClassLoaderBase clearReferencesThreads
+```
