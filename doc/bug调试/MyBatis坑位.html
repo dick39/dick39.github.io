@@ -1175,28 +1175,23 @@ MathJax.Hub.Config({
 <br />
 当使用&lt;if test=&rdquo;value&lt;0&rdquo;&gt;&lt;/if&gt;时，MyBatis解析会出错。百度到说是编码原因也可以排除。<br />
 进行查询实践之后发现使用&amp;lt;可以解决问题，那就说明xml解析时对属性里的“&lt;”进行了特殊字符的处理，导致报错。</p>
-<h3 id="2-if-testvalueaif"><a name="user-content-2-if-testvalueaif" href="#2-if-testvalueaif" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>2. &lt;if test=&rdquo;value=&rsquo;a&rsquo;&ldquo;&gt;&lt;/if&gt;</h3>
+<h3 id="2-if-testvalueaif"><a name="user-content-2-if-testvalueaif" href="#2-if-testvalueaif" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>2. &lt;if test=&rdquo;value==&rsquo;a&rsquo;&ldquo;&gt;&lt;/if&gt;</h3>
 <p>在if标签的test里面，判断字符相等有关注点：<br />
-  = 和 ==<br />
   &lsquo;&rsquo; 和 &ldquo;&rdquo;</p>
 <p>设置整型value为97：</p>
 <blockquote>
 <p>&lt;if test=&rdquo;value==&rsquo;a&rsquo;&ldquo;&gt;#{value}&lt;/if&gt;  =&gt;  97<br />
-&lt;if test=&rdquo;value=&rsquo;a&rsquo;&ldquo;&gt;#{value}&lt;/if&gt;  =&gt;  a<br />
 &lt;if test=&rsquo;value==&rdquo;a&rdquo;&rsquo;&gt;#{value}&lt;/if&gt;  =&gt;  抛出异常：java.lang.NumberFormatException: For input string: &ldquo;a&rdquo;<br />
-&lt;if test=&rsquo;value=&rdquo;a&rdquo;&rsquo;&gt;#{value}&lt;/if&gt;  =&gt;  a<br />
 ps:均以map方式传入参数</p>
 </blockquote>
 <p>设置String类型value为&rdquo;a&rdquo;：</p>
 <blockquote>
 <p>&lt;if test=&rdquo;value==&rsquo;a&rsquo;&ldquo;&gt;#{value}&lt;/if&gt;  =&gt;  抛出异常：java.lang.NumberFormatException: For input string: &ldquo;a&rdquo;<br />
-&lt;if test=&rdquo;value=&rsquo;a&rsquo;&ldquo;&gt;#{value}&lt;/if&gt;  =&gt;  a<br />
 &lt;if test=&rsquo;value==&rdquo;a&rdquo;&rsquo;&gt;#{value}&lt;/if&gt;  =&gt;  a<br />
-&lt;if test=&rsquo;value=&rdquo;a&rdquo;&rsquo;&gt;#{value}&lt;/if&gt;  =&gt;  a<br />
 ps:均以map方式传入参数</p>
 </blockquote>
 <p>可以看出：<br />
-在使用=时，单双引号的区别不大。<br />
-在使用==时，单引号的字符会被看做整数，双引号的对应String类型，当传入的参数类型不能对应时，抛出NumberFormatException异常。<br />
-<strong>=相比于==，更宽松，尽量适配比较语句。</strong><br />
-看各位需求，自行选择。</p></article></body></html>
+单引号的字符会被看做整数，双引号的对应String类型，当传入的参数类型不能对应时，抛出NumberFormatException异常。</p>
+<blockquote>
+<p>ps:在test属性里面使用=可以赋值。</p>
+</blockquote></article></body></html>
