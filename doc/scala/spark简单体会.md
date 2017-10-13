@@ -15,9 +15,9 @@
     val sc = new SparkContext(conf)
     val logFile = sc.textFile(logFileStr)
     //先排除静态元素，再对每行请求进行split取需要信息，最后合并计数排序
-    val lineMap = logFile.filter((str)=>{!(str.toString.contains("jcaptcha.jpg") || str.toString.contains("/js/")
-      || str.toString.contains("/shared_") || str.toString.contains("/images/") || str.toString.contains("/css/")
-      || str.toString.contains("/fonts/"))})
+    val lineMap = logFile.filter((str)=>{!(str.contains("jcaptcha.jpg") || str.contains("/js/")
+      || str.contains("/shared_") || str.contains("/images/") || str.contains("/css/")
+      || str.contains("/fonts/"))})
       .map(line => (line.split(" "){6}.split("\\?"){0},1)).reduceByKey((x,y)=>{x+y}).sortBy(value => value._2,false)
     lineMap.saveAsTextFile("/home/sheng/Documents/output/cmslog")
 ```
